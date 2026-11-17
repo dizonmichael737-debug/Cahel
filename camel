@@ -1,0 +1,157 @@
+# ==========================================
+#           PICKUP COFFEE
+# ==========================================
+
+while True:
+
+    print("\n========================================")
+    print("             PICKUP COFFEE")
+    print("       ROBINSONS ANGELES CITY")
+    print("========================================")
+
+    customer = input("Enter Customer Name: ")
+
+    # COFFEE MENU
+    print("\n============= COFFEE MENU =============")
+    print("[1] Iced Caramel Macchiato - P90.00")
+    print("[2] Iced Spanish Latte      - P110.00")
+    print("[3] Iced Americano          - P85.00")
+    print("[4] Iced Cafe Latte         - P100.00")
+    print("[5] Iced Mocha Latte        - P120.00")
+    print("[6] Hot Americano           - P80.00")
+    print("[7] Hot Cafe Latte          - P95.00")
+    print("[8] Hot Cappuccino          - P105.00")
+    print("[9] Hot Caramel Macchiato   - P115.00")
+    print("[10] Iced Matcha Latte      - P120.00")
+    print("========================================")
+
+    coffee_orders = []
+    subtotal = 0
+
+    while True:
+
+        choice = input("\nEnter Coffee Code (N to finish): ").upper()
+
+        if choice == "N":
+            break
+
+        if choice == "1":
+            coffee = "Iced Caramel Macchiato"
+            price = 90
+        elif choice == "2":
+            coffee = "Iced Spanish Latte"
+            price = 110
+        elif choice == "3":
+            coffee = "Iced Americano"
+            price = 85
+        elif choice == "4":
+            coffee = "Iced Cafe Latte"
+            price = 100
+        elif choice == "5":
+            coffee = "Iced Mocha Latte"
+            price = 120
+        elif choice == "6":
+            coffee = "Hot Americano"
+            price = 80
+        elif choice == "7":
+            coffee = "Hot Cafe Latte"
+            price = 95
+        elif choice == "8":
+            coffee = "Hot Cappuccino"
+            price = 105
+        elif choice == "9":
+            coffee = "Hot Caramel Macchiato"
+            price = 115
+        elif choice == "10":
+            coffee = "Iced Matcha Latte"
+            price = 120
+        else:
+            print("Invalid Coffee Code!")
+            continue
+
+        print("\n[1] Regular")
+        print("[2] Medium")
+        print("[3] Large")
+
+        size = input("Choose Size: ")
+
+        if size == "1":
+            size_name = "Regular"
+        elif size == "2":
+            size_name = "Medium"
+            price += 20
+        elif size == "3":
+            size_name = "Large"
+            price += 40
+        else:
+            print("Invalid Size!")
+            continue
+
+        quantity = int(input("Enter Quantity: "))
+
+        if quantity <= 0:
+            print("Invalid Quantity!")
+            continue
+
+        amount = price * quantity
+        subtotal += amount
+
+        coffee_orders.append(
+            (coffee, size_name, quantity, price, amount)
+        )
+
+        print("Order Added Successfully!")
+
+    if subtotal == 0:
+        print("\nNo Coffee Order!")
+        continue
+
+    # VAT COMPUTATION
+    vatable_sales = subtotal / 1.12
+    vat_amount = subtotal - vatable_sales
+
+    # PAYMENT
+    print("\n========== PAYMENT ==========")
+    print(f"Total Amount: P{subtotal:.2f}")
+
+    cash = float(input("Enter Cash: "))
+
+    if cash < subtotal:
+        print("Insufficient Cash!")
+        continue
+
+    change = cash - subtotal
+
+    # SALES INVOICE
+    print("\n========================================")
+    print("              SALES INVOICE")
+    print("========================================")
+    print("Customer Name:", customer)
+    print("----------------------------------------")
+    print("ITEM                 QTY   PRICE  AMOUNT")
+    print("----------------------------------------")
+
+    for order in coffee_orders:
+        coffee, size, qty, price, amount = order
+        print(f"{coffee} ({size})")
+        print(f"                     {qty}   {price:.2f}   {amount:.2f}")
+
+    print("----------------------------------------")
+    print(f"Subtotal:                 P{subtotal:.2f}")
+    print(f"VATable Sales:            P{vatable_sales:.2f}")
+    print(f"VAT Amount:               P{vat_amount:.2f}")
+    print("----------------------------------------")
+    print(f"AMOUNT DUE:               P{subtotal:.2f}")
+    print(f"Cash:                     P{cash:.2f}")
+    print(f"Change Due:               P{change:.2f}")
+    print("========================================")
+    print("       THANK YOU FOR YOUR ORDER!")
+    print("             PICKUP COFFEE")
+    print("========================================")
+
+    again = input("\nNew Customer? (Y/N): ").upper()
+
+    if again == "N":
+        print("\nThank you for visiting Pickup Coffee!")
+        break
+
